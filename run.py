@@ -63,11 +63,10 @@ def translate_file(file_path: Path) -> None:
     for key in keys:
         attribute = key[6:-2]
         attribute = attribute[0].lower() + attribute[1:]
-        data[attribute] = {}
-        for lang in langs:
-            translation = translate_item(type_dir.name, data[key], lang)
-            if translation:
-                data[attribute][lang] = translation
+        translation = {lang: trad for lang in langs
+                       if (trad := translate_item(type_dir.name, data[key], lang))}
+        if translation:
+            data[attribute] = translation
     dest = output_path / type_dir.name / f"{data['values']['id']}.json"
     dest.parent.mkdir(exist_ok=True, parents=True)
     dest.write_bytes(orjson.dumps(data, option=orjson.OPT_INDENT_2))
