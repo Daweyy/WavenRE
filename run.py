@@ -4,6 +4,7 @@ from typing import TypedDict
 
 import UnityPy
 import orjson
+import shutil
 
 
 langs = ["fr", "en", "es", "de", "pt"]
@@ -88,3 +89,5 @@ if __name__ == '__main__':
     for type_dir in data_path.iterdir():
         for file_path in tqdm(list(type_dir.iterdir()), desc=f"Translate {type_dir.name}"):
             translate_file(file_path)
+
+    shutil.rmtree(working_path, ignore_errors=True)
