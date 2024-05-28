@@ -33,6 +33,8 @@ def unpack(file: Path, output: Path, data_file: bool = False) -> None:
                     json = orjson.loads(data["m_jsonRepresentation"])
                     data["values"] = json
                     del data["m_jsonRepresentation"]
+                    if isinstance(json["type"], int):
+                        continue
                     type = json["type"].replace("Definition", "")
                     if not type.endswith("s"):
                         type += "s"
