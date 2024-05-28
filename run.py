@@ -34,7 +34,7 @@ def unpack(file: Path, output: Path, data_file: bool = False) -> None:
                     data["values"] = json
                     del data["m_jsonRepresentation"]
                     type = str(json["type"]).replace("Definition", "")
-                    if not type.endswith("s") and not isinstance(json["id"], int):
+                    if not type.endswith("s") and not isinstance(json["type"], int):
                         type += "s"
                     dest = output / type / f"{json["id"]}.json"
                 else:
